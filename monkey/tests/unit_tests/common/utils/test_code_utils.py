@@ -40,3 +40,8 @@ def test_del_key__nonexistant_key():
 
     # This test passes if the following call does not raise an error
     del_key(my_dict, key_to_delete)
+
+
+# This is useful for lambda functions that only raise an error
+def raise_error(error: Exception):
+    raise error
