@@ -45,7 +45,7 @@ def test_propagation_credentials_endpoint_delete(flask_client):
 
     resp = flask_client.delete(propagation_credentials_url)
 
-    assert resp.status_code == 200
+    assert resp.status_code == 204
 
 
 def test_propagation_credentials_endpoint_delete_failed(monkeypatch, flask_client):

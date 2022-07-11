@@ -1,4 +1,4 @@
-from flask import jsonify, make_response
+from flask import jsonify
 
 from monkey_island.cc.repository import ICredentialsRepository
 from monkey_island.cc.resources.AbstractResource import AbstractResource
@@ -17,4 +17,4 @@ class PropagationCredentials(AbstractResource):
 
     def delete(self):
         self._credentials_repository.remove_all_credentials()
-        return make_response({}, 200)
+        return {}, 204
