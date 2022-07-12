@@ -25,7 +25,7 @@ class JSONFileUserRepository(IUserRepository):
         with open(self._credentials_file, "r") as f:
             credentials_dict = json.load(f)
 
-            return UserCredentials(credentials_dict["user"], credentials_dict["password_hash"])
+            return UserCredentials(credentials_dict["username"], credentials_dict["password_hash"])
 
     def has_registered_users(self) -> bool:
         return self._credentials is not None
@@ -48,7 +48,7 @@ class JSONFileUserRepository(IUserRepository):
 
     def _store_credentials_to_file(self):
         with open_new_securely_permissioned_file(self._credentials_file, "w") as f:
-            json.dump(self._credentials.to_dict(), f, indent=2)
+            json.dump(self._credentials.to_mapping(), f, indent=2)
 
     def get_user_credentials(self, username: str) -> UserCredentials:
         if self._credentials is None or self._credentials.username != username:
