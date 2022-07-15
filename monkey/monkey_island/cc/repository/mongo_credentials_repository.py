@@ -13,16 +13,16 @@ class MongoCredentialsRepository(ICredentialsRepository):
     """
 
     def __init__(self, mongo: MongoClient):
-        self._mongo = mongo
+        self._database = mongo.monkeyisland
 
     def get_configured_credentials(self) -> Sequence[Credentials]:
         return MongoCredentialsRepository._get_credentials_from_collection(
-            self._mongo.db.configured_credentials
+            self._database.configured_credentials
         )
 
     def get_stolen_credentials(self) -> Sequence[Credentials]:
         return MongoCredentialsRepository._get_credentials_from_collection(
-            self._mongo.db.stolen_credentials
+            self._database.stolen_credentials
         )
 
     def get_all_credentials(self) -> Sequence[Credentials]:
@@ -34,22 +34,22 @@ class MongoCredentialsRepository(ICredentialsRepository):
     def save_configured_credentials(self, credentials: Sequence[Credentials]):
         # TODO: Fix deduplication of Credentials in mongo
         MongoCredentialsRepository._save_credentials_to_collection(
-            credentials, self._mongo.db.configured_credentials
+            credentials, self._database.configured_credentials
         )
 
     def save_stolen_credentials(self, credentials: Sequence[Credentials]):
         MongoCredentialsRepository._save_credentials_to_collection(
-            credentials, self._mongo.db.stolen_credentials
+            credentials, self._database.stolen_credentials
         )
 
     def remove_configured_credentials(self):
         MongoCredentialsRepository._remove_credentials_fom_collection(
-            self._mongo.db.configured_credentials
+            self._database.configured_credentials
         )
 
     def remove_stolen_credentials(self):
         MongoCredentialsRepository._remove_credentials_fom_collection(
-            self._mongo.db.stolen_credentials
+            self._database.stolen_credentials
         )
 
     def remove_all_credentials(self):
