@@ -1,7 +1,6 @@
 from common.utils.attack_utils import ScanStatus
 from monkey_island.cc.repository import ICredentialsRepository
 from monkey_island.cc.services.attack.technique_reports import AttackTechnique
-from monkey_island.cc.services.reporting import format_creds_for_reporting
 
 
 class T1003(AttackTechnique):
@@ -41,7 +40,5 @@ class T1003GetReportData:
 
         data.update(T1003.get_message_and_status(status))
         data.update(T1003.get_mitigation_by_status(status))
-        data["stolen_creds"] = format_creds_for_reporting(
-            self._credentials_repository.get_stolen_credentials()
-        )
+        data["stolen_creds"] = self._credentials_repository.get_stolen_credentials()
         return data
